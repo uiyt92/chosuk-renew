@@ -1,0 +1,13 @@
+# 렌더링 임시 파일 (재생성 가능)
+_qa/
+
+# 세션 파일
+.claude/
+
+# 타사 참고 자료 (저작권)
+우주_연애추월차선.pdf
+
+# OS
+Thumbs.db
+.DS_Store
+desktop.ini
