@@ -2,6 +2,7 @@
 // lib.typ — 초석(礎石) 템플릿 컴포넌트
 // ============================================================
 #import "theme.typ": *
+#import "@preview/cetz:0.4.2"
 
 // 도식 번호 카운터
 #let figc = counter("figure-diagram")
@@ -46,7 +47,7 @@
 // ---- 작은 골드 키커 라벨 ----
 #let kicker(s) = text(font: font-body, size: 8.5pt, weight: w-bold, fill: gold, tracking: 0.18em)[#upper(s)]
 
-// ---- 풀디자인 표지 ----
+// ---- 풀디자인 표지 (프리미엄 미니멀 — 흰 배경 + 중앙 엠블럼) ----
 #let cover(
   title: "초석",
   hanja: "礎石",
@@ -55,48 +56,84 @@
   tagline: "",
   badges: (),
 ) = {
-  page(fill: dark, margin: (x: 0pt, y: 0pt), footer: none, header: none)[
-    #set text(fill: on-dark, font: font-body)
-    // 상단 시리즈 라벨
-    #place(top + left, dx: 2.4cm, dy: 2.2cm)[
-      #text(size: 10pt, weight: w-med, fill: gold, tracking: 0.22em)[#upper(series)]
+  page(fill: paper, margin: (x: 0pt, y: 0pt), footer: none, header: none)[
+    #set text(fill: ink, font: font-body)
+
+    // ─ 좌상단 에디션 라벨
+    #place(top + left, dx: 2.4cm, dy: 2.3cm)[
+      #text(size: 8pt, weight: w-med, fill: faint, tracking: 0.3em)[THE LEGACY · 1부]
     ]
-    // 우상단 세로 장식선
-    #place(top + right, dx: -2.4cm, dy: 2.2cm)[
-      #line(start: (0pt, 0pt), end: (0pt, 3.2cm), stroke: 1pt + gold)
+    // ─ 우상단 얇은 골드 세로선
+    #place(top + right, dx: -2.4cm, dy: 2.3cm)[
+      #line(start: (0pt, 0pt), end: (0pt, 2.4cm), stroke: 0.6pt + gold.lighten(30%))
     ]
-    // 중앙 제목 블록
-    #place(left + horizon, dx: 2.4cm)[
-      #stack(spacing: 0.2em,
-        text(size: 130pt, weight: w-black, fill: on-dark)[#title],
-        box(inset: (left: 0.15em))[
-          #text(size: 40pt, weight: w-reg, fill: gold)[#hanja]
-        ],
-      )
-      #v(0.5em)
-      #block(width: 13cm)[
-        #text(size: 19pt, weight: w-semi, fill: on-dark)[#subtitle]
+
+    // ─ 제목 블록 (상단 1/3 중앙)
+    #place(top + center, dy: 4.5cm)[
+      #align(center)[
+        #text(size: 90pt, weight: w-black, fill: ink, tracking: -0.02em)[#title]
+        #v(-0.6em)
+        #text(size: 24pt, weight: w-light, fill: gold)[#hanja]
+        #v(0.8em)
+        #line(length: 2.8cm, stroke: 0.5pt + rule)
+        #v(0.7em)
+        #text(size: 9.5pt, weight: w-reg, fill: muted, tracking: 0.12em)[#series]
+        #v(0.3em)
+        #text(size: 9pt, weight: w-reg, fill: faint)[저 · 한조]
       ]
     ]
-    // 하단 띠배너 + 태그라인 + 배지
+
+    // ─ 중앙 엠블럼 (cetz 동심원 + 방사선)
+    #place(center, dy: 1.8cm)[
+      #cetz.canvas(length: 1cm, {
+        import cetz.draw: *
+        // 외부 얇은 회색 원
+        circle((0, 0), radius: 3.1,
+          stroke: (paint: rule, thickness: 0.4pt), fill: none)
+        // 골드 내원
+        circle((0, 0), radius: 2.3,
+          stroke: (paint: gold, thickness: 0.7pt), fill: none)
+        // 극세 내원
+        circle((0, 0), radius: 1.7,
+          stroke: (paint: gold.lighten(45%), thickness: 0.35pt), fill: none)
+        // 중심 礎 문자 (얇게)
+        content((0, 0.1),
+          text(font: font-body, size: 28pt, weight: w-light, fill: ink)[礎])
+        // 12개 틱마크 (외원에서 방사)
+        for i in range(12) {
+          let a = float(i) * 30deg
+          let r0 = 3.1
+          let r1 = if calc.rem(i, 3) == 0 { 3.65 } else { 3.35 }
+          let th = if calc.rem(i, 3) == 0 { 0.9pt } else { 0.3pt }
+          let col = if calc.rem(i, 3) == 0 { gold } else { rule }
+          line(
+            (r0 * calc.cos(a), r0 * calc.sin(a)),
+            (r1 * calc.cos(a), r1 * calc.sin(a)),
+            stroke: (paint: col, thickness: th))
+        }
+      })
+    ]
+
+    // ─ 하단 다크 띠 (전폭)
     #place(bottom + left, dx: 0pt, dy: 0pt)[
-      #block(width: 21cm, fill: gold, inset: (x: 2.4cm, y: 0.9cm))[
-        #set text(fill: dark)
-        #text(size: 15pt, weight: w-black)[#tagline]
+      #block(width: 21cm, fill: dark, inset: (x: 2.4cm, top: 1.0cm, bottom: 1.1cm))[
+        #set text(fill: on-dark, font: font-body)
+        #if tagline != "" [
+          #text(size: 11.5pt, weight: w-black, fill: on-dark)[#tagline]
+          #v(0.55em)
+        ]
+        #if badges.len() > 0 {
+          grid(columns: badges.len() * (auto,), column-gutter: 1.0cm,
+            ..badges.map(b => {
+              stack(spacing: 0.22em,
+                text(size: 17pt, weight: w-black, fill: gold)[#b.at(0)],
+                text(size: 7.5pt, weight: w-med, fill: on-dark-mute)[#b.at(1)],
+              )
+            })
+          )
+        }
       ]
     ]
-    #if badges.len() > 0 {
-      place(bottom + left, dx: 2.4cm, dy: -3.2cm)[
-        #grid(columns: badges.len() * (auto,), column-gutter: 0.9cm,
-          ..badges.map(b => {
-            stack(spacing: 0.25em,
-              text(size: 22pt, weight: w-black, fill: gold)[#b.at(0)],
-              text(size: 8.5pt, weight: w-med, fill: on-dark-mute)[#b.at(1)],
-            )
-          })
-        )
-      ]
-    }
   ]
 }
 
@@ -124,7 +161,7 @@
 
 // ---- 에피그래프 (섹션 도입 인용) ----
 #let epigraph(body) = block(width: 100%, above: 0.4em, below: 1.6em, inset: (left: 1em), stroke: (left: 2pt + gold))[
-  #text(size: 11.5pt, weight: w-med, fill: muted, style: "italic")[#body]
+  #text(size: 12.5pt, weight: w-med, fill: muted, style: "italic")[#body]
 ]
 
 // ---- 매니페스토 (센터드 강조 클로저) ----
@@ -162,7 +199,7 @@
 // ---- 24시간 미션 박스 (실행 루프: 행동 전 → 행동 → 행동 후 기록) ----
 #let mission(action, before-q, after-q) = block(width: 100%, above: 1.4em, below: 1.4em, breakable: false,
   fill: gold-soft, radius: 6pt, inset: (x: 1.1em, y: 1em), stroke: (left: 3pt + gold))[
-  #text(size: 11pt, weight: w-black, fill: gold.darken(15%))[⚡ 24시간 미션 — 머리로 알았으면, 오늘 안에 몸으로 증명하라]
+  #text(size: 11pt, weight: w-black, fill: gold.darken(15%))[24시간 미션 — 머리로 알았으면, 오늘 안에 몸으로 증명하라]
   #v(0.5em)
   #set text(size: 10pt, fill: ink)
   *오늘 할 행동:* #action

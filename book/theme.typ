@@ -38,6 +38,6 @@
 
 // ---- 치수 ----
 #let page-margin = (top: 2.7cm, bottom: 2.7cm, x: 2.7cm)
-#let body-size = 11.5pt
+#let body-size = 13pt
 #let body-leading = 1.3em      // par leading (넓은 행간)
 #let body-spacing = 2.0em      // 문단 간격 (여유로운 단락)
