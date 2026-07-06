@@ -62,6 +62,12 @@
       #image("assets/cover-bg.png", width: 21cm, height: 29.7cm, fit: "cover")
     ]
 
+    // ─ 상단 다크 그라디언트 오버레이 (텍스트 가독성 확보)
+    #place(top + left, dx: 0pt, dy: 0pt)[
+      #rect(width: 21cm, height: 13cm,
+        fill: gradient.linear(rgb("#080808"), rgb("#080808").transparentize(100%), angle: 90deg))
+    ]
+
     // ─ 좌상단 에디션 라벨
     #place(top + left, dx: 2.4cm, dy: 2.3cm)[
       #text(size: 7.5pt, weight: w-med, fill: white.transparentize(35%), tracking: 0.35em)[THE LEGACY · 1부]
@@ -71,39 +77,22 @@
       #line(start: (0pt, 0pt), end: (0pt, 2.0cm), stroke: 0.5pt + gold.lighten(20%))
     ]
 
-    // ─ 제목 블록 (이미지 상단 어둠 영역 — 약 3~7cm 구간)
-    #place(top + center, dy: 3.0cm)[
+    // ─ 제목 블록 (상단 그라디언트 영역 안)
+    #place(top + center, dy: 3.2cm)[
       #align(center)[
         #text(size: 88pt, weight: w-black, fill: white, tracking: -0.01em)[#title]
-        #v(-0.4em)
-        #text(size: 22pt, weight: w-light, fill: gold)[#hanja]
-        #v(0.7em)
-        #line(length: 2.4cm, stroke: 0.5pt + white.transparentize(55%))
-        #v(0.55em)
-        #text(size: 9pt, weight: w-reg, fill: white.transparentize(25%), tracking: 0.1em)[#series]
-        #v(0.25em)
-        #text(size: 8.5pt, weight: w-reg, fill: white.transparentize(45%))[저 · 한조]
+        #v(-0.5em)
+        #text(size: 21pt, weight: w-light, fill: gold)[#hanja]
       ]
     ]
 
-    // ─ 하단 반투명 띠
+    // ─ 하단 다크 띠 (부제 + 시리즈/저자)
     #place(bottom + left, dx: 0pt, dy: 0pt)[
-      #block(width: 21cm, fill: rgb("#080808").transparentize(15%), inset: (x: 2.4cm, top: 0.85cm, bottom: 1.0cm))[
+      #block(width: 21cm, fill: rgb("#080808").transparentize(8%), inset: (x: 2.4cm, top: 1.0cm, bottom: 1.1cm))[
         #set text(fill: on-dark, font: font-body)
-        #if tagline != "" [
-          #text(size: 11pt, weight: w-black, fill: on-dark)[#tagline]
-          #v(0.5em)
-        ]
-        #if badges.len() > 0 {
-          grid(columns: badges.len() * (auto,), column-gutter: 1.0cm,
-            ..badges.map(b => {
-              stack(spacing: 0.18em,
-                text(size: 16pt, weight: w-black, fill: gold)[#b.at(0)],
-                text(size: 7pt, weight: w-med, fill: on-dark-mute)[#b.at(1)],
-              )
-            })
-          )
-        }
+        #text(size: 11.5pt, weight: w-black, fill: on-dark)[근본이 달라진 남자는 — 원하지 않아도 선택받는다]
+        #v(0.5em)
+        #text(size: 8.5pt, weight: w-reg, fill: on-dark-mute, tracking: 0.08em)[#series · 저 한조]
       ]
     ]
   ]
