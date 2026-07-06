@@ -1,32 +1,34 @@
-<svg viewBox="110 -20 540 480" xmlns="http://www.w3.org/2000/svg" fill="none">
-  <!-- 오른쪽(그림자) 측면 — 어둡게 -->
-  <g stroke="#8C6E40" stroke-width="1.3" stroke-linejoin="round">
-    <polygon points="330,430 382,404 382,352 330,378"/>
-    <polygon points="382,352 434,326 434,274 382,300"/>
-    <polygon points="434,274 486,248 486,196 434,222"/>
-    <polygon points="486,196 538,170 538,118 486,144"/>
-    <polygon points="538,118 590,92 590,40 538,66"/>
-  </g>
-  <!-- 디딤면(윗면) -->
-  <g stroke="#B8935B" stroke-width="1.5" stroke-linejoin="round" fill="#B8935B" fill-opacity="0.05">
-    <polygon points="140,378 330,378 382,352 192,352"/>
-    <polygon points="192,300 382,300 434,274 244,274"/>
-    <polygon points="244,222 434,222 486,196 296,196"/>
-    <polygon points="296,144 486,144 538,118 348,118"/>
-    <polygon points="348,66 538,66 590,40 400,40"/>
-  </g>
-  <!-- 앞면(챌판) — 밝은 골드 -->
-  <g stroke="#C9A063" stroke-width="2" stroke-linejoin="round" fill="#C9A063" fill-opacity="0.04">
-    <polygon points="140,430 330,430 330,378 140,378"/>
-    <polygon points="192,352 382,352 382,300 192,300"/>
-    <polygon points="244,274 434,274 434,222 244,222"/>
-    <polygon points="296,196 486,196 486,144 296,144"/>
-    <polygon points="348,118 538,118 538,66 348,66"/>
-  </g>
-  <!-- 정점의 초석(주춧돌) — 강조 -->
-  <g stroke-linejoin="round">
-    <polygon points="498,60 524,47 524,1 498,14" stroke="#8C6E40" stroke-width="1.4"/>
-    <polygon points="444,14 498,14 524,1 470,1" stroke="#D8B57C" stroke-width="1.8" fill="#C9A063" fill-opacity="0.10"/>
-    <polygon points="444,60 498,60 498,14 444,14" stroke="#E6C68E" stroke-width="2.3" fill="#C9A063" fill-opacity="0.15"/>
-  </g>
+<svg viewBox="110 -20 540 480" xmlns="http://www.w3.org/2000/svg">
+  <!-- 각 계단을 뒤(위) → 앞(아래) 순으로, 면을 불투명 채움하여 뒷선 가림 -->
+  <!-- 색: 측면(그림자) #100D09 / 앞면 #15110B / 윗면 #1B1610 -->
+
+  <!-- ── 5단 (최상단·최후방) ── -->
+  <polygon points="538,118 590,92 590,40 538,66" fill="#100D09" stroke="#8C6E40" stroke-width="1.3" stroke-linejoin="round"/>
+  <polygon points="348,66 538,66 590,40 400,40" fill="#1B1610" stroke="#B8935B" stroke-width="1.5" stroke-linejoin="round"/>
+  <polygon points="348,118 538,118 538,66 348,66" fill="#15110B" stroke="#C9A063" stroke-width="2" stroke-linejoin="round"/>
+
+  <!-- ── 정점의 초석(주춧돌) ── -->
+  <polygon points="498,60 524,47 524,1 498,14" fill="#120E08" stroke="#8C6E40" stroke-width="1.4" stroke-linejoin="round"/>
+  <polygon points="444,14 498,14 524,1 470,1" fill="#2A2116" stroke="#D8B57C" stroke-width="1.8" stroke-linejoin="round"/>
+  <polygon points="444,60 498,60 498,14 444,14" fill="#241C11" stroke="#E6C68E" stroke-width="2.3" stroke-linejoin="round"/>
+
+  <!-- ── 4단 ── -->
+  <polygon points="486,196 538,170 538,118 486,144" fill="#100D09" stroke="#8C6E40" stroke-width="1.3" stroke-linejoin="round"/>
+  <polygon points="296,144 486,144 538,118 348,118" fill="#1B1610" stroke="#B8935B" stroke-width="1.5" stroke-linejoin="round"/>
+  <polygon points="296,196 486,196 486,144 296,144" fill="#15110B" stroke="#C9A063" stroke-width="2" stroke-linejoin="round"/>
+
+  <!-- ── 3단 ── -->
+  <polygon points="434,274 486,248 486,196 434,222" fill="#100D09" stroke="#8C6E40" stroke-width="1.3" stroke-linejoin="round"/>
+  <polygon points="244,222 434,222 486,196 296,196" fill="#1B1610" stroke="#B8935B" stroke-width="1.5" stroke-linejoin="round"/>
+  <polygon points="244,274 434,274 434,222 244,222" fill="#15110B" stroke="#C9A063" stroke-width="2" stroke-linejoin="round"/>
+
+  <!-- ── 2단 ── -->
+  <polygon points="382,352 434,326 434,274 382,300" fill="#100D09" stroke="#8C6E40" stroke-width="1.3" stroke-linejoin="round"/>
+  <polygon points="192,300 382,300 434,274 244,274" fill="#1B1610" stroke="#B8935B" stroke-width="1.5" stroke-linejoin="round"/>
+  <polygon points="192,352 382,352 382,300 192,300" fill="#15110B" stroke="#C9A063" stroke-width="2" stroke-linejoin="round"/>
+
+  <!-- ── 1단 (최하단·최전방) ── -->
+  <polygon points="330,430 382,404 382,352 330,378" fill="#100D09" stroke="#8C6E40" stroke-width="1.3" stroke-linejoin="round"/>
+  <polygon points="140,378 330,378 382,352 192,352" fill="#1B1610" stroke="#B8935B" stroke-width="1.5" stroke-linejoin="round"/>
+  <polygon points="140,430 330,430 330,378 140,378" fill="#15110B" stroke="#C9A063" stroke-width="2" stroke-linejoin="round"/>
 </svg>
