@@ -87,30 +87,9 @@
       ]
     ]
 
-    // ─ 초석(주춧돌) 금빛 라인아트 — 기둥이 솟는 받침돌
-    #place(top + center, dy: 17.4cm)[
-      #cetz.canvas(length: 1cm, {
-        import cetz.draw: *
-        let gs = (paint: gld, thickness: 1.1pt)
-        let gf = (paint: gld.transparentize(55%), thickness: 0.6pt)
-        // 계단형 받침 (아래 → 위)
-        rect((-3.6, -2.5), (3.6, -1.75), stroke: gs)
-        rect((-3.1, -1.75), (3.1, -1.05), stroke: gs)
-        // 몸돌(주춧돌 본체)
-        rect((-2.3, -1.05), (2.3, 1.95), stroke: gs)
-        // 갓돌
-        rect((-2.9, 1.95), (2.9, 2.5), stroke: gs)
-        rect((-3.2, 2.5), (3.2, 2.8), stroke: gs)
-        // 솟아오르는 기둥(위로 열림 — 계속 이어지는 느낌)
-        line((-0.72, 2.8), (-0.72, 5.0), stroke: gs)
-        line((0.72, 2.8), (0.72, 5.0), stroke: gs)
-        line((-0.72, 3.2), (0.72, 3.2), stroke: gf)
-        // 돌결·이음선(은은한 텍스처)
-        line((-2.3, 0.45), (2.3, 0.45), stroke: gf)
-        line((-2.3, -0.4), (2.3, -0.4), stroke: gf)
-        line((-1.35, -1.05), (-1.15, 0.45), stroke: gf)
-        line((1.0, 0.45), (1.28, 1.95), stroke: gf)
-      })
+    // ─ 초석 금빛 라인아트 — 계단을 올라 정점의 주춧돌에 이르다
+    #place(top + center, dy: 16.0cm)[
+      #image("assets/cornerstone.svg", width: 10.5cm)
     ]
 
     // ─ 저자
