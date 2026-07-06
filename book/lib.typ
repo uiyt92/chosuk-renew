@@ -130,6 +130,23 @@
   #text(size: 12.5pt, weight: w-med, fill: muted, style: "italic")[#body]
 ]
 
+// ---- 인용구 강조 (위인 인용 — 풀쿼트) ----
+#let pquote(body, by: "") = block(width: 100%, above: 1.8em, below: 1.8em, breakable: false)[
+  #set par(justify: false, leading: 0.8em, spacing: 0.7em)
+  #align(center)[
+    #text(size: 30pt, weight: w-black, fill: gold.transparentize(45%), top-edge: "cap-height", bottom-edge: "baseline")[“]
+
+    #box(width: 82%)[#text(size: 14pt, weight: w-med, fill: ink, style: "italic")[#body]]
+
+    #if by != "" [
+      #v(0.5em)
+      #line(length: 0.9cm, stroke: 0.6pt + gold.transparentize(20%))
+      #v(0.35em)
+      #text(size: 9.5pt, weight: w-semi, fill: gold, tracking: 0.14em)[#by]
+    ]
+  ]
+]
+
 // ---- 매니페스토 (센터드 강조 클로저) ----
 #let manifesto(body, accent: gold) = block(width: 100%, above: 1.15em, below: 1.5em, breakable: false)[
   #align(center)[
