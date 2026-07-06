@@ -47,53 +47,79 @@
 // ---- 작은 골드 키커 라벨 ----
 #let kicker(s) = text(font: font-body, size: 8.5pt, weight: w-bold, fill: gold, tracking: 0.18em)[#upper(s)]
 
-// ---- 풀디자인 표지 (이미지 배경 — 시계 그림자 + 남자 실루엣) ----
+// ---- 풀디자인 표지 (디자인형 미니멀 — 웜블랙 + 금빛 초석 라인아트) ----
 #let cover(
   title: "초석",
   hanja: "礎石",
   series: "한조 비기 · THE LEGACY",
-  subtitle: "최상위 유혹자의 기본 마인드셋",
+  subtitle: "근본이 달라진 남자는 — 원하지 않아도 선택받는다",
   tagline: "",
   badges: (),
 ) = {
-  page(fill: rgb("#080808"), margin: (x: 0pt, y: 0pt), footer: none, header: none)[
-    // ─ 전면 배경 이미지 (full bleed)
-    #place(top + left, dx: 0pt, dy: 0pt)[
-      #image("assets/cover-bg.png", width: 21cm, height: 29.7cm, fit: "cover")
+  let bg      = rgb("#0C0B08")   // 웜블랙 배경
+  let cream   = rgb("#ECE4D1")   // 제목 크림
+  let gld     = rgb("#B8935B")   // 앤티크 골드 (라인)
+  let gld-mut = rgb("#9C8250")   // 뮤트 골드 (라벨)
+  page(fill: bg, margin: (x: 0pt, y: 0pt), footer: none, header: none)[
+    #set text(font: font-body)
+
+    // ─ 초석 뒤 은은한 광원 (radial glow)
+    #place(top + center, dy: 15.5cm)[
+      #box(width: 17cm, height: 13cm,
+        fill: gradient.radial(gld.transparentize(90%), bg.transparentize(100%)))
     ]
 
-    // ─ 상단 다크 그라디언트 오버레이 (텍스트 가독성 확보)
-    #place(top + left, dx: 0pt, dy: 0pt)[
-      #rect(width: 21cm, height: 13cm,
-        fill: gradient.linear(rgb("#080808"), rgb("#080808").transparentize(100%), angle: 90deg))
+    // ─ 상단 시리즈 라벨
+    #place(top + center, dy: 2.5cm)[
+      #text(size: 8pt, weight: w-med, fill: gld-mut, tracking: 0.42em)[한조 비기 · THE LEGACY · 1부]
     ]
 
-    // ─ 좌상단 에디션 라벨
-    #place(top + left, dx: 2.4cm, dy: 2.3cm)[
-      #text(size: 7.5pt, weight: w-med, fill: white.transparentize(35%), tracking: 0.35em)[THE LEGACY · 1부]
-    ]
-    // ─ 우상단 골드 세로선
-    #place(top + right, dx: -2.4cm, dy: 2.3cm)[
-      #line(start: (0pt, 0pt), end: (0pt, 2.0cm), stroke: 0.5pt + gold.lighten(20%))
-    ]
-
-    // ─ 제목 블록 (상단 그라디언트 영역 안)
-    #place(top + center, dy: 3.2cm)[
+    // ─ 제목 블록
+    #place(top + center, dy: 4.4cm)[
       #align(center)[
-        #text(size: 88pt, weight: w-black, fill: white, tracking: -0.01em)[#title]
-        #v(-0.5em)
-        #text(size: 21pt, weight: w-light, fill: gold)[#hanja]
+        #text(size: 78pt, weight: w-bold, fill: cream, tracking: 0.06em)[#title]
+        #v(0.2em)
+        #text(size: 18pt, weight: w-light, fill: gld, tracking: 0.55em)[#hanja]
+        #v(1.5em)
+        #line(length: 1.5cm, stroke: 0.5pt + gld.transparentize(15%))
+        #v(1.3em)
+        #text(size: 10.5pt, weight: w-reg, fill: cream.transparentize(22%), tracking: 0.03em)[#subtitle]
       ]
     ]
 
-    // ─ 하단 다크 띠 (부제 + 시리즈/저자)
-    #place(bottom + left, dx: 0pt, dy: 0pt)[
-      #block(width: 21cm, fill: rgb("#080808").transparentize(8%), inset: (x: 2.4cm, top: 1.0cm, bottom: 1.1cm))[
-        #set text(fill: on-dark, font: font-body)
-        #text(size: 11.5pt, weight: w-black, fill: on-dark)[근본이 달라진 남자는 — 원하지 않아도 선택받는다]
-        #v(0.5em)
-        #text(size: 8.5pt, weight: w-reg, fill: on-dark-mute, tracking: 0.08em)[#series · 저 한조]
-      ]
+    // ─ 초석(주춧돌) 금빛 라인아트 — 기둥이 솟는 받침돌
+    #place(top + center, dy: 17.4cm)[
+      #cetz.canvas(length: 1cm, {
+        import cetz.draw: *
+        let gs = (paint: gld, thickness: 1.1pt)
+        let gf = (paint: gld.transparentize(55%), thickness: 0.6pt)
+        // 계단형 받침 (아래 → 위)
+        rect((-3.6, -2.5), (3.6, -1.75), stroke: gs)
+        rect((-3.1, -1.75), (3.1, -1.05), stroke: gs)
+        // 몸돌(주춧돌 본체)
+        rect((-2.3, -1.05), (2.3, 1.95), stroke: gs)
+        // 갓돌
+        rect((-2.9, 1.95), (2.9, 2.5), stroke: gs)
+        rect((-3.2, 2.5), (3.2, 2.8), stroke: gs)
+        // 솟아오르는 기둥(위로 열림 — 계속 이어지는 느낌)
+        line((-0.72, 2.8), (-0.72, 5.0), stroke: gs)
+        line((0.72, 2.8), (0.72, 5.0), stroke: gs)
+        line((-0.72, 3.2), (0.72, 3.2), stroke: gf)
+        // 돌결·이음선(은은한 텍스처)
+        line((-2.3, 0.45), (2.3, 0.45), stroke: gf)
+        line((-2.3, -0.4), (2.3, -0.4), stroke: gf)
+        line((-1.35, -1.05), (-1.15, 0.45), stroke: gf)
+        line((1.0, 0.45), (1.28, 1.95), stroke: gf)
+      })
+    ]
+
+    // ─ 저자
+    #place(bottom + center, dy: -2.1cm)[
+      #text(size: 9pt, weight: w-reg, fill: cream.transparentize(32%), tracking: 0.18em)[저 · 한조]
+    ]
+    // ─ 출판
+    #place(bottom + center, dy: -1.2cm)[
+      #text(size: 7.5pt, weight: w-med, fill: gld-mut, tracking: 0.32em)[한조컴퍼니]
     ]
   ]
 }
